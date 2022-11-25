@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import Typography from '@mui/material/Typography'
+import { useTranslation } from 'react-i18next'
+import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ApiAddBook, ApiGetBook, ApiUpdateBook } from '../services/Api'
 import { BookType } from '../hooks/Types'
 import { Formik } from 'formik'
+import Typography from '@mui/material/Typography'
 import { Box, Button, Grid, TextField } from '@mui/material'
 
 const BookForm = (): JSX.Element => {
   const [book, setBook] = useState<BookType>({ id: '', title: '', description: '' })
   const navigate = useNavigate()
+  const { t } = useTranslation()
+  /**
+   * @TODO: define type 'params'
+   */
   const params: any = useParams<string>()
 
   useEffect(() => {
@@ -74,7 +80,7 @@ const BookForm = (): JSX.Element => {
   return (
     <>
       <Typography component="h1" variant="h3" color="text.primary" gutterBottom>
-        {book.id === '' ? 'New book' : 'Update book'}
+        {book.id === '' ? t('new_book.label') : t('update_book.label')}
       </Typography>
       <Formik
         initialValues={book}
@@ -98,7 +104,7 @@ const BookForm = (): JSX.Element => {
                   value={values.title}
                   fullWidth
                   id="title"
-                  label="Title"
+                  label={t('title.label')}
                   autoFocus
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -114,7 +120,7 @@ const BookForm = (): JSX.Element => {
                   fullWidth
                   id="description"
                   value={values.description}
-                  label="Description"
+                  label={t('description.label')}
                   autoFocus
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -127,7 +133,7 @@ const BookForm = (): JSX.Element => {
                   variant="contained"
                   sx={{ marginRight: 3 }}
                 >
-                  {book.id === '' ? 'Add' : 'Update'}
+                  {book.id === '' ? t('add.label') : t('update.label')}
                 </Button>
               </Grid>
             </Grid>

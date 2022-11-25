@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Typography from '@mui/material/Typography'
+import { useTranslation } from 'react-i18next'
+import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate } from 'react-router-dom'
 import { ApiDelBook, ApiGetBooks } from '../services/Api'
+import Typography from '@mui/material/Typography'
 import {
   Fab,
   IconButton,
@@ -27,6 +29,7 @@ const Books = (): JSX.Element => {
   const [lastPage, setLastPage] = useState<number>(1)
   const [deletedBook, setDeletedBook] = useState<boolean>(false)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   useEffect(() => {
     setDeletedBook(false)
@@ -77,16 +80,16 @@ const Books = (): JSX.Element => {
   return (
     <>
       <Typography component="h1" variant="h3" color="text.primary" gutterBottom>
-        Book list
+        {t('book_list.label')}
       </Typography>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">Id</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell align="right">{t('id.label')}</TableCell>
+              <TableCell>{t('title.label')}</TableCell>
+              <TableCell>{t('description.label')}</TableCell>
               <TableCell></TableCell>
               <TableCell></TableCell>
             </TableRow>

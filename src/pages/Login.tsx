@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
+import { useTranslation } from 'react-i18next'
+import '../i18n.js'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
@@ -11,6 +13,7 @@ import { LoginType } from '../hooks/Types'
 
 const Login = (): JSX.Element => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   function loginSubmit(values: LoginType, actions: any): void {
     console.log('Submitting login...')
@@ -70,7 +73,7 @@ const Login = (): JSX.Element => {
                 value={values.email}
                 fullWidth
                 id="email"
-                label="Email"
+                label={t('email.label')}
                 autoFocus
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -85,7 +88,7 @@ const Login = (): JSX.Element => {
                 fullWidth
                 id="password"
                 value={values.password}
-                label="Password"
+                label={t('password.label')}
                 autoFocus
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -98,7 +101,7 @@ const Login = (): JSX.Element => {
                 variant="contained"
                 sx={{ marginRight: 3 }}
               >
-                Submit
+                {t('login.label')}
               </Button>
             </Grid>
           </Grid>
