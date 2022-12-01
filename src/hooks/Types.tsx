@@ -14,3 +14,8 @@ export interface BookType {
   title: string
   description: string
 }
+
+export interface BookFormErrorsType {
+  title?: string | null
+  description?: string | null
+}

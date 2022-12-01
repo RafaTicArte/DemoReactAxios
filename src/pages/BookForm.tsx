@@ -4,10 +4,9 @@ import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ApiAddBook, ApiGetBook, ApiUpdateBook } from '../services/Api'
-import { BookType } from '../hooks/Types'
+import { BookFormErrorsType, BookType } from '../hooks/Types'
 import { Formik } from 'formik'
-import Typography from '@mui/material/Typography'
-import { Box, Button, Grid, TextField } from '@mui/material'
+import { Typography, Box, Button, Grid, TextField } from '@mui/material'
 
 const BookForm = (): JSX.Element => {
   const [book, setBook] = useState<BookType>({ id: '', title: '', description: '' })
@@ -44,6 +43,24 @@ const BookForm = (): JSX.Element => {
         })
     }
   }, [])
+
+  function validateBook(values: BookType): BookFormErrorsType {
+    const errors: BookFormErrorsType = {}
+
+    if (values.title === '') {
+      errors.title = t('error_title_required.label')
+    } else if (values.title.length < 3) {
+      errors.title = t('error_title_characters.label')
+    }
+
+    if (values.description === '') {
+      errors.description = t('error_description_required.label')
+    } else if (values.description.length < 3) {
+      errors.description = t('error_description_characters.label')
+    }
+
+    return errors
+  }
 
   function onBookSubmit(values: BookType, actions: any): void {
     actions.setSubmitting(true)
@@ -85,45 +102,53 @@ const BookForm = (): JSX.Element => {
       <Formik
         initialValues={book}
         enableReinitialize={true}
+        validate={validateBook}
         onSubmit={onBookSubmit}
-        // validate={validateBook}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isSubmitting }) => (
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ marginTop: 3, maxWidth: 400 }}
-          >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          resetForm,
+          values,
+          touched,
+          errors,
+          isSubmitting
+        }) => (
+          <Box component="form" onSubmit={handleSubmit} sx={{ marginTop: 3, maxWidth: 400 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="title"
-                  name="title"
-                  required
-                  value={values.title}
-                  fullWidth
                   id="title"
+                  name="title"
                   label={t('title.label')}
-                  autoFocus
+                  value={values.title}
+                  required
+                  fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  error={errors.title != null}
+                  helperText={touched.title === true && errors.title !== '' ? errors.title : ''}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="description"
+                  id="description"
                   name="description"
+                  label={t('description.label')}
+                  value={values.description}
+                  required
                   multiline
                   rows={4}
-                  required
                   fullWidth
-                  id="description"
-                  value={values.description}
-                  label={t('description.label')}
-                  autoFocus
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  error={errors.description != null}
+                  helperText={
+                    touched.description === true && errors.description !== ''
+                      ? errors.description
+                      : ''
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -134,6 +159,9 @@ const BookForm = (): JSX.Element => {
                   sx={{ marginRight: 3 }}
                 >
                   {book.id === '' ? t('add.label') : t('update.label')}
+                </Button>
+                <Button variant="outlined" onClick={() => resetForm()}>
+                  {t('reset.label')}
                 </Button>
               </Grid>
             </Grid>
