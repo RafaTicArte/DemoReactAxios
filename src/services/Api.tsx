@@ -14,7 +14,7 @@ export async function ApiGetToken(email: string, password: string): Promise<any>
   return await ApiConnect.post('login', {
     email,
     password,
-    name: navigator.userAgent
+    device: navigator.userAgent
   })
 }
 
