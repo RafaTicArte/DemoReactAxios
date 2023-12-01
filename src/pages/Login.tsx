@@ -44,7 +44,7 @@ const Login = (): JSX.Element => {
 
   return (
     <Formik
-      initialValues={{ email: 'loraine.wisozk@example.com', password: 'password' }}
+      initialValues={{ email: 'info@ticarte.com', password: 'password' }}
       onSubmit={loginSubmit}
       // validate={validateBasketball}
     >
