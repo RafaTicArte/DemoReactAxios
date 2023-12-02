@@ -12,9 +12,6 @@ const BookForm = (): JSX.Element => {
   const [book, setBook] = useState<BookType>({ id: '', title: '', description: '' })
   const navigate = useNavigate()
   const { t } = useTranslation()
-  /**
-   * @TODO: define type 'params'
-   */
   const params = useParams<string>()
 
   useEffect(() => {

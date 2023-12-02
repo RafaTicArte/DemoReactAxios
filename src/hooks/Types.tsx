@@ -43,3 +43,10 @@ export interface BooksResponseType {
 export interface BookResponseType {
   data: BookType
 }
+
+export interface ErrorResponseType {
+  response: {
+    status: number
+  }
+  message: string
+}

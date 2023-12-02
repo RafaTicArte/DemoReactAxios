@@ -4,7 +4,7 @@ import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate } from 'react-router-dom'
 import { ApiGetUser } from '../services/Api'
-import { UserProfileType } from '../hooks/Types'
+import { ErrorResponseType, UserProfileType } from '../hooks/Types'
 import Typography from '@mui/material/Typography'
 
 const User = (): JSX.Element => {
@@ -26,8 +26,9 @@ const User = (): JSX.Element => {
         console.log(response.data)
         setUserProfile(response.data)
       })
-      .catch(() => {
+      .catch((error: ErrorResponseType) => {
         console.log('Not found User Profile...')
+        console.log(error.message)
       })
   }, [navigate])
 

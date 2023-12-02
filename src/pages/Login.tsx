@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import '../i18n.js'
 import { ApiGetToken } from '../services/Api'
 import { setToken, getToken } from '../hooks/UseToken'
-import { LoginFormType, LoginType } from '../hooks/Types'
+import { ErrorResponseType, LoginFormType, LoginType } from '../hooks/Types'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -29,7 +29,7 @@ const Login = (): JSX.Element => {
         setToken(response.data.token)
         navigate('/user')
       })
-      .catch((error) => {
+      .catch((error: ErrorResponseType) => {
         if (error.response.status == 401) {
           console.log('Usuario o contraseña incorrecta')
           setErrorMessage('Usuario o contraseña incorrecta')
