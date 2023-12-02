@@ -1,10 +1,19 @@
-import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import './i18n.js'
-import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { AppBar, Box, Button, FormControl, Link, MenuItem, Select, Toolbar } from '@mui/material'
+import {
+  AppBar,
+  Box,
+  Button,
+  FormControl,
+  Link,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Toolbar
+} from '@mui/material'
+import Typography from '@mui/material/Typography'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
@@ -16,7 +25,7 @@ const theme = createTheme()
 const App = (): JSX.Element => {
   const { t, i18n } = useTranslation()
 
-  const changeLanguage = (event: any): void => {
+  const changeLanguage = (event: SelectChangeEvent<string>): void => {
     void i18n.changeLanguage(event.target.value)
   }
 

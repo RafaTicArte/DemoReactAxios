@@ -15,7 +15,31 @@ export interface BookType {
   description: string
 }
 
+export interface LoginFormType {
+  setSubmitting: (submit: boolean) => void
+}
+
+export interface BookFormType {
+  setSubmitting: (submit: boolean) => void
+}
+
 export interface BookFormErrorsType {
   title?: string | null
   description?: string | null
+}
+
+export interface LoginResponseType {
+  token: string
+}
+
+export interface BooksResponseType {
+  data: BookType[]
+  meta: {
+    current_page: number
+    last_page: number
+  }
+}
+
+export interface BookResponseType {
+  data: BookType
 }

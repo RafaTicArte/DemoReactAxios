@@ -4,7 +4,7 @@ import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ApiAddBook, ApiGetBook, ApiUpdateBook } from '../services/Api'
-import { BookFormErrorsType, BookType } from '../hooks/Types'
+import { BookFormType, type BookFormErrorsType, type BookType } from '../hooks/Types'
 import { Formik } from 'formik'
 import { Typography, Box, Button, Grid, TextField } from '@mui/material'
 
@@ -15,7 +15,7 @@ const BookForm = (): JSX.Element => {
   /**
    * @TODO: define type 'params'
    */
-  const params: any = useParams<string>()
+  const params = useParams<string>()
 
   useEffect(() => {
     console.log('Checking local token... ' + getToken())
@@ -42,7 +42,7 @@ const BookForm = (): JSX.Element => {
           console.log('Get Book error...')
         })
     }
-  }, [])
+  }, [book, navigate, params])
 
   function validateBook(values: BookType): BookFormErrorsType {
     const errors: BookFormErrorsType = {}
@@ -62,8 +62,8 @@ const BookForm = (): JSX.Element => {
     return errors
   }
 
-  function onBookSubmit(values: BookType, actions: any): void {
-    actions.setSubmitting(true)
+  function onBookSubmit(values: BookType, { setSubmitting }: BookFormType): void {
+    setSubmitting(true)
 
     if (values.id === '') {
       console.log('Adding book...')
@@ -91,7 +91,7 @@ const BookForm = (): JSX.Element => {
         })
     }
 
-    actions.setSubmitting(false)
+    setSubmitting(false)
   }
 
   return (
@@ -160,7 +160,12 @@ const BookForm = (): JSX.Element => {
                 >
                   {book.id === '' ? t('add.label') : t('update.label')}
                 </Button>
-                <Button variant="outlined" onClick={() => resetForm()}>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    resetForm()
+                  }}
+                >
                   {t('reset.label')}
                 </Button>
               </Grid>

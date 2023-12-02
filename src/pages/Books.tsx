@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import '../i18n.js'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate } from 'react-router-dom'
 import { ApiDelBook, ApiGetBooks } from '../services/Api'
+import { BookType } from '../hooks/Types'
 import Typography from '@mui/material/Typography'
 import {
   Fab,
   IconButton,
   Pagination,
+  Paper,
   Stack,
   Table,
   TableBody,
@@ -17,11 +19,9 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import Paper from '@mui/material/Paper'
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { BookType } from '../hooks/Types'
 
 const Books = (): JSX.Element => {
   const [books, setBooks] = useState<BookType[]>([])
@@ -50,9 +50,9 @@ const Books = (): JSX.Element => {
       .catch(() => {
         console.log('Get books error..')
       })
-  }, [page, deletedBook])
+  }, [page, deletedBook, navigate])
 
-  function onChangePage(event: any, page: number): void {
+  function onChangePage(event: ChangeEvent<unknown>, page: number): void {
     setPage(page)
   }
 
@@ -106,13 +106,21 @@ const Books = (): JSX.Element => {
                   <IconButton
                     color="primary"
                     component="label"
-                    onClick={() => onClickUpdate(book.id)}
+                    onClick={() => {
+                      onClickUpdate(book.id)
+                    }}
                   >
                     <EditIcon />
                   </IconButton>
                 </TableCell>
                 <TableCell>
-                  <IconButton color="primary" component="label" onClick={() => onClickDel(book.id)}>
+                  <IconButton
+                    color="primary"
+                    component="label"
+                    onClick={() => {
+                      onClickDel(book.id)
+                    }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import Typography from '@mui/material/Typography'
+import { useEffect } from 'react'
 import { getToken, setToken } from '../hooks/UseToken'
 import { useNavigate } from 'react-router-dom'
 import { ApiLogout } from '../services/Api'
+import Typography from '@mui/material/Typography'
 
 const Logout = (): JSX.Element => {
   const navigate = useNavigate()
@@ -20,11 +20,12 @@ const Logout = (): JSX.Element => {
         setToken('')
         navigate('/')
       })
-      .catch(() => {
+      .catch((error) => {
         console.log('Logout error..')
+        console.log(error.message)
         setToken('')
       })
-  }, [])
+  }, [navigate])
 
   return (
     <Typography component="h1" variant="h3" color="text.primary" gutterBottom>

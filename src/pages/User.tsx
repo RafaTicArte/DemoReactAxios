@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import '../i18n.js'
-import Typography from '@mui/material/Typography'
 import { getToken } from '../hooks/UseToken'
 import { useNavigate } from 'react-router-dom'
 import { ApiGetUser } from '../services/Api'
 import { UserProfileType } from '../hooks/Types'
+import Typography from '@mui/material/Typography'
 
 const User = (): JSX.Element => {
   const [userProfile, setUserProfile] = useState<UserProfileType>({ id: '', name: '', email: '' })
@@ -29,7 +29,7 @@ const User = (): JSX.Element => {
       .catch(() => {
         console.log('Not found User Profile...')
       })
-  }, [])
+  }, [navigate])
 
   return (
     <>

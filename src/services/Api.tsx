@@ -1,7 +1,13 @@
-import Axios from 'axios'
+import Axios, { AxiosPromise } from 'axios'
 import { ApiUrl } from '../config'
-import { BookType } from '../hooks/Types'
 import { getToken } from '../hooks/UseToken'
+import {
+  BookType,
+  LoginResponseType,
+  BooksResponseType,
+  BookResponseType,
+  UserProfileType
+} from '../hooks/Types'
 
 const ApiConnect = Axios.create({
   baseURL: ApiUrl,
@@ -10,7 +16,10 @@ const ApiConnect = Axios.create({
   }
 })
 
-export async function ApiGetToken(email: string, password: string): Promise<any> {
+export async function ApiGetToken(
+  email: string,
+  password: string
+): AxiosPromise<LoginResponseType> {
   return await ApiConnect.post('login', {
     email,
     password,
@@ -18,7 +27,7 @@ export async function ApiGetToken(email: string, password: string): Promise<any>
   })
 }
 
-export async function ApiLogout(): Promise<any> {
+export async function ApiLogout(): AxiosPromise<LoginResponseType> {
   return await ApiConnect.get('logout', {
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +37,7 @@ export async function ApiLogout(): Promise<any> {
   })
 }
 
-export async function ApiGetUser(): Promise<any> {
+export async function ApiGetUser(): AxiosPromise<UserProfileType> {
   return await ApiConnect.get('user', {
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +47,7 @@ export async function ApiGetUser(): Promise<any> {
   })
 }
 
-export async function ApiGetBooks(page: number): Promise<any> {
+export async function ApiGetBooks(page: number): AxiosPromise<BooksResponseType> {
   return await ApiConnect.get('v1/books?page=' + page.toString(), {
     headers: {
       'Content-Type': 'application/json',
@@ -48,7 +57,7 @@ export async function ApiGetBooks(page: number): Promise<any> {
   })
 }
 
-export async function ApiGetBook(id: string): Promise<any> {
+export async function ApiGetBook(id: string): AxiosPromise<BookResponseType> {
   return await ApiConnect.get('v1/books/' + id, {
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +67,7 @@ export async function ApiGetBook(id: string): Promise<any> {
   })
 }
 
-export async function ApiAddBook(book: BookType): Promise<any> {
+export async function ApiAddBook(book: BookType): AxiosPromise<BooksResponseType> {
   return await ApiConnect.post(
     'v1/books',
     {
@@ -75,7 +84,7 @@ export async function ApiAddBook(book: BookType): Promise<any> {
   )
 }
 
-export async function ApiUpdateBook(book: BookType): Promise<any> {
+export async function ApiUpdateBook(book: BookType): AxiosPromise<BooksResponseType> {
   return await ApiConnect.put(
     'v1/books/' + book.id,
     {
@@ -92,7 +101,7 @@ export async function ApiUpdateBook(book: BookType): Promise<any> {
   )
 }
 
-export async function ApiDelBook(id: string): Promise<any> {
+export async function ApiDelBook(id: string): AxiosPromise<BooksResponseType> {
   return await ApiConnect.delete('v1/books/' + id, {
     headers: {
       'Content-Type': 'application/json',
