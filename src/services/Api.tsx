@@ -1,5 +1,4 @@
 import Axios, { AxiosPromise } from 'axios'
-import { ApiUrl } from '../config'
 import { getToken } from '../hooks/UseToken'
 import {
   BookType,
@@ -10,7 +9,7 @@ import {
 } from '../hooks/Types'
 
 const ApiConnect = Axios.create({
-  baseURL: ApiUrl,
+  baseURL: import.meta.env.VITE_API_URL as string,
   headers: {
     'Content-type': 'application/json'
   }
