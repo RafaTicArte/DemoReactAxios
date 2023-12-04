@@ -15,10 +15,7 @@ const ApiConnect = Axios.create({
   }
 })
 
-export async function ApiLogin(
-  email: string,
-  password: string
-): AxiosPromise<LoginResponseType> {
+export async function ApiLogin(email: string, password: string): AxiosPromise<LoginResponseType> {
   return await ApiConnect.post('login', {
     email,
     password,

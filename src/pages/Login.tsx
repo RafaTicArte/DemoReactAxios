@@ -6,11 +6,7 @@ import '../i18n.js'
 import { ApiLogin } from '../services/Api'
 import { setToken, getToken } from '../hooks/UseToken'
 import { ErrorResponseType, LoginFormType, LoginType } from '../hooks/Types'
-import Alert from '@mui/material/Alert'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
+import { Alert, Box, Button, Grid, TextField } from '@mui/material'
 
 const Login = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState('')
