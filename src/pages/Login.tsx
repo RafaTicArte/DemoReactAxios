@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import '../i18n.js'
-import { ApiGetToken } from '../services/Api'
+import { ApiLogin } from '../services/Api'
 import { setToken, getToken } from '../hooks/UseToken'
 import { ErrorResponseType, LoginFormType, LoginType } from '../hooks/Types'
 import Alert from '@mui/material/Alert'
@@ -22,7 +22,7 @@ const Login = (): JSX.Element => {
     console.log(values)
     setSubmitting(true)
 
-    ApiGetToken(values.email, values.password)
+    ApiLogin(values.email, values.password)
       .then((response) => {
         console.log('Saving local token... ')
         console.log(response.data.token)

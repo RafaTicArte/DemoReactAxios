@@ -15,7 +15,7 @@ const ApiConnect = Axios.create({
   }
 })
 
-export async function ApiGetToken(
+export async function ApiLogin(
   email: string,
   password: string
 ): AxiosPromise<LoginResponseType> {
